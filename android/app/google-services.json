@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "494355589954",
+    "project_id": "carigedegang",
+    "storage_bucket": "carigedegang.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494355589954:android:bead6fc5b11c95429676db",
+        "android_client_info": {
+          "package_name": "com.cari4gedegang.carigedegang"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp0qtqO2MsHZvSQjXXj3OooAhzcCigEhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
