@@ -2,20 +2,21 @@ import { sendEmailVerification, createUserWithEmailAndPassword, signInWithEmailA
 import { collection, addDoc } from "firebase/firestore";
 import { auth, db } from './Config';
 
-export const signup = async (email, password) => {
+export const signup = async (email, password, firstName, lastName) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     await emailVerification();
     const user = userCredential.user;
-    console.log("User registered:", user);
+    console.log("User registered: ", user);
 
     // Store user data in Firestore
     const userRef = collection(db, "users");
     await addDoc(userRef, {
-      email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      password: user.password,
+      uid: user.uid,
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      password: password,
       // Add other user data here
     });
 

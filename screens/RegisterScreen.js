@@ -2,7 +2,6 @@ import { StyleSheet, KeyboardAvoidingView, ScrollView, Image, Text, TextInput, T
 import React, { useState } from 'react';
 import { signup } from "../services/Auth";
 import { useNavigation } from '@react-navigation/native';
-import { SaveUserData } from "../services/FirebaseDatabase";
 import Loader from "../services/LoadingIndicator";
 
 const RegisterScreen = () => {
@@ -17,11 +16,9 @@ const RegisterScreen = () => {
         setLoading(true);
 
         try {
-            const user = await signup(email, password);
+            const user = await signup(email, password, firstname, lastname);
 
             if (user) {
-                const id = user.uid;
-                await SaveUserData(id, firstname, lastname);
                 // navigation.navigate("Login");
             }
         } catch (error) {
@@ -47,9 +44,7 @@ const RegisterScreen = () => {
           <TextInput style={styles.input} placeholder="Lastname"  autoCapitalize="none" value={lastname} onChangeText={setLastname} />
           <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={setEmail} />
           <TextInput style={styles.input} placeholder="Password" secureTextEntry autoCapitalize="none" value={password} onChangeText={setPassword} />
-          <TouchableOpacity style={styles.button} onPress={handleSignup}>
-            <Text style={styles.buttonText}>Register</Text>
-          </TouchableOpacity>
+          { loading ? ( <Loader /> ) : ( <TouchableOpacity style={styles.button} onPress={handleSignup}><Text style={styles.buttonText}>Signup</Text></TouchableOpacity> )}
           <TouchableOpacity style={styles.link} onPress={handleLogin}>
             <Text>Already have an account? Login here.</Text>
           </TouchableOpacity>
