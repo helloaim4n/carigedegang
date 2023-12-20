@@ -42,7 +42,19 @@
             "useFrameworks": "static"
           }
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "71394ade-5a44-43ee-9e5b-4a5227fa287a"
+      }
+    },
+    "owner": "azddn"
   }
 }
