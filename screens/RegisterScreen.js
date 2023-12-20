@@ -1,15 +1,17 @@
-import { StyleSheet, KeyboardAvoidingView, ScrollView, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView, Text } from 'react-native';
+import { TextInput, Button, Snackbar } from "react-native-paper";
 import React, { useState } from 'react';
 import { signup } from "../services/Auth";
 import { useNavigation } from '@react-navigation/native';
 import Loader from "../services/LoadingIndicator";
 
 const RegisterScreen = () => {
-    const [email, setEmail] = useState("test@gmail.com");
-    const [password, setPassword] = useState("123456");
-    const [firstname, setFirstname] = useState("Test");
-    const [lastname, setLastname] = useState("User");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     const [loading, setLoading] = useState(false);
+    const [snackbarVisible, setSnackbarVisible] = useState(false);
     const navigation = useNavigation();
 
     const handleSignup = async () => {
@@ -23,31 +25,34 @@ const RegisterScreen = () => {
             }
         } catch (error) {
             setLoading(false);
-            if (error.code === "auth/email-already-in-use") {
-                alert("Email already in use. Please choose different email.");
-            } else if (error.code === "auth/weak-password") {
-                alert("Weak password. Please choose stronger password.");
-            } else {
-                alert("Signup error: " + error.message);
-            }
+            setSnackbarVisible(true);
         }
     };
 
     const handleLogin = async () => {
+
         navigation.navigate("Login");
     };
 
     return (
-        <KeyboardAvoidingView behavior="padding" style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} enabled={false} style={styles.container}>
           <Text style={styles.title}>Register</Text>
-          <TextInput style={styles.input} placeholder="Firstname"  autoCapitalize="none" value={firstname} onChangeText={setFirstname} />
-          <TextInput style={styles.input} placeholder="Lastname"  autoCapitalize="none" value={lastname} onChangeText={setLastname} />
-          <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={setEmail} />
-          <TextInput style={styles.input} placeholder="Password" secureTextEntry autoCapitalize="none" value={password} onChangeText={setPassword} />
-          { loading ? ( <Loader /> ) : ( <TouchableOpacity style={styles.button} onPress={handleSignup}><Text style={styles.buttonText}>Signup</Text></TouchableOpacity> )}
-          <TouchableOpacity style={styles.link} onPress={handleLogin}>
-            <Text>Already have an account? Login here.</Text>
-          </TouchableOpacity>
+          <TextInput style={{width: "100%"}} placeholder="First name"  autoCapitalize="none" value={firstname} onChangeText={setFirstname} />
+          <TextInput style={{width: "100%"}} placeholder="Last name"  autoCapitalize="none" value={lastname} onChangeText={setLastname} />
+          <TextInput style={{width: "100%"}} placeholder="Email" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={setEmail} />
+          <TextInput style={{width: "100%"}} placeholder="Password" secureTextEntry autoCapitalize="none" value={password} onChangeText={setPassword} />
+          <Button style={{ marginTop: 20 }} mode="contained" onPress={handleSignup} loading={loading}>
+            Sign up
+          </Button>
+          <Button onPress={handleLogin}>
+            Already have an account? Login here.
+          </Button>
+          <Snackbar
+            visible={snackbarVisible}
+            onDismiss={() => setSnackbarVisible(false)}
+          >
+            Invalid email or password.
+          </Snackbar>
         </KeyboardAvoidingView>
       );
     };
@@ -58,6 +63,7 @@ const RegisterScreen = () => {
         backgroundColor: "white",
         alignItems: "center",
         justifyContent: "center",
+        padding: 20,
       },
       title: {
         fontSize: 24,
