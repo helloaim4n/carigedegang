@@ -3,18 +3,19 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import {  initializeAuth, getReactNativePersistence } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID } from "@env";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDWnZrxJdSGF-UIYj0hkeJY_u7ON_ODke8",
-  authDomain: "carigedegang.firebaseapp.com",
-  databaseURL: "https://carigedegang-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "carigedegang",
-  storageBucket: "carigedegang.appspot.com",
-  messagingSenderId: "494355589954",
-  appId: "1:494355589954:web:83bd4ac2ce23d00b9676db"
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID
 };
 
 // Initialize Firebase
