@@ -1,23 +1,32 @@
 import React, { useState } from 'react';
-import { Text, KeyboardAvoidingView, StyleSheet, FlatList, View, TouchableOpacity, Platform } from 'react-native';
+import { Text, KeyboardAvoidingView, StyleSheet, FlatList, View, Platform } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import VendingMachineItem from '../components/VendingMachineItem';
 
 const MapListScreen = () => {
   const [filter, setFilter] = useState('');
+
   const vendingMachines = [
     { id: '1', name: 'SnackMaster 2000', country: 'USA' },
     { id: '2', name: 'VendoTron', country: 'Canada' },
     { id: '3', name: 'Chips-o-Matic', country: 'USA' },
     { id: '4', name: 'SodaStream 500', country: 'Mexico' },
     { id: '5', name: 'Candy-o-Matic', country: 'Canada' },
+    { id: '6', name: 'Snack-o-Tron', country: 'USA' },
+    { id: '7', name: 'SnackMaster 2000', country: 'USA' },
+    { id: '8', name: 'VendoTron', country: 'Canada' },
+    { id: '9', name: 'Chips-o-Matic', country: 'USA' },
+    { id: '10', name: 'SodaStream 500', country: 'Mexico' },
+    { id: '11', name: 'Candy-o-Matic', country: 'Canada' },
+    { id: '12', name: 'Snack-o-Tron', country: 'USA' },
   ];
 
-  const filteredMachines = vendingMachines.filter(machine =>
-    machine.country.toLowerCase().includes(filter.toLowerCase()) ||
-    machine.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  const renderItem = ({ item }) => <ExpandableItem item={item} />;
+  const getFilteredMachines = () => {
+    return vendingMachines.filter(machine =>
+      machine.country.toLowerCase().includes(filter.toLowerCase()) ||
+      machine.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
 
   return (
     <KeyboardAvoidingView 
@@ -25,69 +34,51 @@ const MapListScreen = () => {
       style={styles.container}
     >
       <View style={styles.innerContainer}>
-        <Text>Map List Screen</Text>
+        <Text style={styles.headerText}>Map List Screen</Text>
         <TextInput
-          label="Filter by country"
+          label="Filter by country or name"
           value={filter}
-          onChangeText={text => setFilter(text)}
+          onChangeText={setFilter}
           style={styles.input}
         />
         <FlatList
-          data={filteredMachines}
+          data={getFilteredMachines()}
           keyExtractor={item => item.id}
-          renderItem={renderItem}
+          renderItem={({ item }) => <VendingMachineItem item={item} />}
+          style={styles.list}
         />
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-const ExpandableItem = ({ item }) => {
-  const [expanded, setExpanded] = useState(false);
-
-  return (
-    <TouchableOpacity onPress={() => setExpanded(!expanded)} style={styles.item}>
-      <Text style={styles.title}>{item.name} ({item.country})</Text>
-      {expanded && (
-        <View style={styles.details}>
-          {/* Render more details about the item here */}
-          <Text>Details about {item.name}</Text>
-        </View>
-      )}
-    </TouchableOpacity>
-  );
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#fff', // Consider a light background for better readability
+    paddingTop: '20%',
   },
   innerContainer: {
-    width: '80%',
+    width: '100%',
     maxWidth: 600,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center', // Center align the header text
+    color: '#333333',
   },
   input: {
     marginBottom: 20,
+    backgroundColor: '#f0f0f0', // A subtle background color for the input
   },
-  item: {
-    backgroundColor: '#f9f9f9',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
+  list: {
+    width: '100%', // Ensure the list takes the full width
+    marginBottom: '40%',
   },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  details: {
-    marginTop: 10,
-    // Additional styling for details
-  },
+  // You can keep other styles as they are or adjust as needed
 });
 
 export default MapListScreen;
