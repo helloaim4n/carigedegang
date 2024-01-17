@@ -19,23 +19,3 @@ This project is a mobile application 📱 developed using React Native and Expo,
 
 ## Project Goals
 The primary objective of this project is to create a convenient and reliable tool 🛠️ for users to easily find vending machines, enhancing their everyday convenience. By leveraging cutting-edge technologies and user-centric design principles, this app aims to revolutionize how people access on-the-go refreshments and essentials 🌐.
-
----
-
-# Getting Started
-> Instructions on how to set up the project locally.
-
-# Installation
-> Steps to install the project.
-
-# Usage
-> Guidelines on how to use the app.
-
-# Contributing
-> Information for those who wish to contribute to the project.
-
-# License
-> License information.
-
-# Contact
-> Your contact information or links to your social media.
